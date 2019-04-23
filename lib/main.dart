@@ -75,9 +75,9 @@ class _MyHomePageState extends State<_MyHomePage> {
       case Detector.barcode:
         return mlVision.barcodeDetector().detectInImage;
       case Detector.label:
-        return mlVision.labelDetector().detectInImage;
+        return mlVision.imageLabeler().processImage;
       case Detector.cloudLabel:
-        return mlVision.cloudLabelDetector().detectInImage;
+        return mlVision.cloudImageLabeler().processImage;
       default:
         assert(_currentDetector == Detector.face);
         return mlVision.faceDetector().processImage;
@@ -110,11 +110,11 @@ class _MyHomePageState extends State<_MyHomePage> {
         painter = FaceDetectorPainter(imageSize, _scanResults);
         break;
       case Detector.label:
-        if (_scanResults is! List<Label>) return noResultsText;
+        if (_scanResults is! List<ImageLabel>) return noResultsText;
         painter = LabelDetectorPainter(imageSize, _scanResults);
         break;
       case Detector.cloudLabel:
-        if (_scanResults is! List<Label>) return noResultsText;
+        if (_scanResults is! List<ImageLabel>) return noResultsText;
         painter = LabelDetectorPainter(imageSize, _scanResults);
         break;
       default:
